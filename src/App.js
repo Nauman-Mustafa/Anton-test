@@ -1,10 +1,10 @@
 import logo from './logo.svg';
 import './App.css';
-import PageSelector from './components/page-selector';
+import MainPage from './pages/MainPage/mainPage';
 function App() {
   return (
     <div className="App">
-      <PageSelector /> 
+      <MainPage /> 
     </div>
   );
 }

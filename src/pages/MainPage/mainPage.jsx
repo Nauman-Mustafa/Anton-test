@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
-import '../App.css';
+import './mainPage.css';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
-const PageSelector = () => {
+import Button from '../../components/Button/button';
+import PageList from '../../components/PageList/pageList';
+import AllPages from '../../components/AllPages/allPages';
+const MainPage = () => {
   const [selectedPages, setSelectedPages] = useState(new Set());
-  const allPages = ['Page 1', 'Page 2', 'Page 3', 'Page 4'];
+
+const allPages = ['Page 1', 'Page 2', 'Page 3', 'Page 4', 'Page 5'];
 
   const handleDoneClick = () => {
     const numberOfSelectedPages = selectedPages.size;
@@ -16,11 +19,11 @@ const PageSelector = () => {
       const page = Array.from(selectedPages)[0];
       toast.success(`${page} selected.`);
     } else if (numberOfSelectedPages === allPages.length) {
-      toast.success('All pages selected.');
+      toast.success('All pages selected successfully!');
     } else {
       const pagesArray = Array.from(selectedPages);
       const lastPage = pagesArray.pop();
-      const message = pagesArray.join(', ') + ' and ' + lastPage + ' selected.';
+      const message = pagesArray.join(', ') + ' and ' + lastPage + ' selected successfully!';
       toast.success(message);
     }
   };
@@ -38,7 +41,7 @@ const PageSelector = () => {
       updatedSelection.has(page) ? updatedSelection.delete(page) : updatedSelection.add(page);
     }
 
-    // After modifying the selection, check if all individual pages are selected.
+
     const areAllSelected = allPages.every(page => updatedSelection.has(page));
     areAllSelected ? allPages.forEach(page => updatedSelection.add(page)) : updatedSelection.delete('All pages');
     setSelectedPages(updatedSelection);
@@ -46,33 +49,16 @@ const PageSelector = () => {
 
   return (
     <div className='page-selector'>
-      <div className='all-page'>
-        <label>
-          All pages
-        </label>
-        <input
-          type='checkbox'
-          checked={selectedPages.size === allPages.length}
-          onChange={() => togglePageSelection('All pages')}
-        />
-      </div>
+  
+      <AllPages selectedPages={selectedPages} allPages={allPages} togglePageSelection={togglePageSelection} />
 
-      <div className='pages-list'>
-        {allPages.map((page, index) => (
-          <label key={index}>
-            {page}
-            <input
-              type='checkbox'
-              checked={selectedPages.has(page)}
-              onChange={() => togglePageSelection(page)}
-            />
-          </label>
-        ))}
-      </div>
-      <button className='done-button' onClick={handleDoneClick}>Done</button>
-      <ToastContainer position="top-center" autoClose={5000} />
+      <PageList allPages={allPages} selectedPages={selectedPages} togglePageSelection={togglePageSelection} />
+
+    
+      <Button onClick={handleDoneClick} /> 
+     
     </div>
   );
 };
 
-export default PageSelector;
+export default MainPage;

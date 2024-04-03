@@ -1,0 +1,15 @@
+ 
+  .done-button {
+    width: 100%;
+    padding: 13px 16px;
+    background-color: #ffcc00;
+    border: none;
+    border-radius: .35rem;
+    margin-top: 16px;
+    cursor: pointer;
+    border: 1px solid #d4d4d4;
+  }
+  
+  .done-button:hover {
+    background-color: #e6b800;
+  }
